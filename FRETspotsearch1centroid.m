@@ -30,7 +30,7 @@ for k=1:3
         ds=ds(I,:);
         sizeds=size(ds);
         
-        testlol
+     
 %         idxmatrix=(acq{k}==imdilate(acq{k},K.signalmatrix))&(acq{k}>=max(min_photons_over_bg,4*K.signalnz*sqrt(1/K.signalnz+1/K.bgnz)*sqrt(varacq)));
 %         idx=find(idxmatrix);
 %         x=rem(idx-1,s(1))+1;
