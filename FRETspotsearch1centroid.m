@@ -38,7 +38,7 @@ for k=1:3
 %         idx=x>spacing & x<=s(1)-spacing & y>spacing & y<=s(2)-spacing;
 %         spots(k).coords=[x(idx),y(idx)];
 %         spots(k).frame=frameidx*ones(sum(idx),1);
-        spots(k).coords=[ds(1:2,:)];
+        spots(k).coords=ds(1:2,:);
         spots(k).frame=frameidx*ones(sizeds(1),1);
     end
     

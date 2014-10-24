@@ -210,16 +210,21 @@ for k=1:3
         if k==1
             acq{k}(~isfinite(acq{k}))=-Inf;
         end
-        idxmatrix=(acq{k}==imdilate(acq{k},K.signalmatrix))&(acq{k}>=max(min_photons_over_bg,4*K.signalnz*sqrt(1/K.signalnz+1/K.bgnz)*sqrt(varacq)));
-        idx=find(idxmatrix);
-        x=rem(idx-1,s(1))+1;
-        y=(idx-x)/s(1)+1;
-        idx=x>spacing & x<=s(1)-spacing & y>spacing & y<=s(2)-spacing;
-        spots(k).coords=[x(idx),y(idx)];
-        spots(k).frame=frameidx*ones(sum(idx),1);
+        
+        BW=(acq{k}>=max(min_photons_over_bg,4*K.signalnz*sqrt(1/K.signalnz+1/K.bgnz)*sqrt(varacq)));
+        st=regionprops(BW,acq{k},{'WeightedCentroid','MaxIntensity'});
+        ds=double(struct2dataset(st));
+        [~,I]=sort(ds);
+        ds=ds(I,:);
+        sizeds=size(ds);
+        
+
+
+        spots(k).coords=ds(1:2,:);
+        spots(k).frame=frameidx*ones(sizeds(1),1);
     end
-    spots(k).photons=acq{k}(idxmatrix);
-    spots(k).photons=spots(k).photons(idx);
+    
+        spots(k).photons=ds(:,end);
 end
 end
 
